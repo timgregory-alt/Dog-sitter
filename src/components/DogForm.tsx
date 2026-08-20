@@ -49,6 +49,7 @@ export function DogForm({
   const [error, setError] = useState<string | null>(null);
   const [saved, setSaved] = useState(false);
   const [photo, setPhoto] = useState<string | null>(dog.photo);
+  const [photoPosition, setPhotoPosition] = useState(dog.photo_position ?? 50);
   const [photoBusy, setPhotoBusy] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -59,6 +60,7 @@ export function DogForm({
     setError(null);
     try {
       setPhoto(await resizeToDataUrl(file));
+      setPhotoPosition(50);
     } catch {
       setError("Couldn't process that photo — try a different file.");
     } finally {
@@ -81,6 +83,7 @@ export function DogForm({
       className="flex flex-col gap-5"
     >
       <input type="hidden" name="photo" value={photo ?? ""} />
+      <input type="hidden" name="photo_position" value={photoPosition} />
 
       <div className="flex items-center gap-4">
         <div className="flex h-24 w-24 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-[var(--color-line)] bg-[var(--color-cream-deep)]">
@@ -118,6 +121,35 @@ export function DogForm({
           />
         </div>
       </div>
+
+      {photo && (
+        <div className="flex flex-col gap-2">
+          <span className={labelTextClass}>Photo position</span>
+          <div className="h-40 w-full overflow-hidden rounded-xl border border-[var(--color-line)] bg-[var(--color-cream-deep)]">
+            <Image
+              src={photo}
+              alt=""
+              width={600}
+              height={240}
+              unoptimized
+              className="h-full w-full object-cover"
+              style={{ objectPosition: `50% ${photoPosition}%` }}
+            />
+          </div>
+          <input
+            type="range"
+            min={0}
+            max={100}
+            value={photoPosition}
+            onChange={(e) => setPhotoPosition(Number(e.target.value))}
+            className="w-full accent-[var(--color-accent)]"
+          />
+          <div className="flex justify-between text-xs text-[var(--color-ink-soft)]">
+            <span>Top</span>
+            <span>Bottom</span>
+          </div>
+        </div>
+      )}
 
       <div className="grid grid-cols-2 gap-4">
         <label className={labelClass}>

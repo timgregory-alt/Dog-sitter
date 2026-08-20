@@ -16,6 +16,7 @@ export const SEED_DOGS: Dog[] = [1, 2, 3, 4].map((n) => ({
   name: `Dog ${n}`,
   nickname: null,
   photo: null,
+  photo_position: null,
   bio: null,
   likes: null,
   bad_habits: null,

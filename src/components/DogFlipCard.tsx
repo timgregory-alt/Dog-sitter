@@ -56,6 +56,7 @@ export function DogFlipCard({ dog, flipped, onFlip }: { dog: Dog; flipped: boole
                 height={576}
                 unoptimized
                 className="h-full w-full object-cover"
+                style={{ objectPosition: `50% ${dog.photo_position ?? 50}%` }}
               />
             ) : (
               <div className="flex h-full items-center justify-center">

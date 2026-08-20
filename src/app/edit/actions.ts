@@ -23,6 +23,8 @@ export async function updateDogAction(dogId: string, formData: FormData): Promis
   if (!(await hasEditSession())) return { error: "Not authorized" };
 
   const photo = String(formData.get("photo") ?? "").trim();
+  const rawPhotoPosition = String(formData.get("photo_position") ?? "").trim();
+  const photoPosition = rawPhotoPosition ? Number(rawPhotoPosition) : null;
   const likes = String(formData.get("likes") ?? "")
     .split("\n")
     .map((l) => l.trim())
@@ -36,6 +38,7 @@ export async function updateDogAction(dogId: string, formData: FormData): Promis
     name: String(formData.get("name") ?? "").trim(),
     nickname: String(formData.get("nickname") ?? "").trim() || null,
     photo: photo || null,
+    photo_position: photoPosition !== null && !Number.isNaN(photoPosition) ? photoPosition : null,
     bio: String(formData.get("bio") ?? "").trim() || null,
     likes: likes.length > 0 ? likes : null,
     bad_habits: badHabits.length > 0 ? badHabits : null,

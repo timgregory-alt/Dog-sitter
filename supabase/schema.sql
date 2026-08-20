@@ -9,6 +9,7 @@ create table if not exists public.dogs (
   name text not null,
   nickname text,
   photo text,
+  photo_position integer,
   bio text,
   likes text[],
   bad_habits text[],

@@ -16,6 +16,9 @@ export interface Dog {
   nickname: string | null;
   /** A data URL (photo uploaded via the edit form) or a hosted image URL. */
   photo: string | null;
+  /** Vertical crop focus as a percentage (0 = top, 100 = bottom). Null means
+   * centered (50). Lets a photo be nudged without re-cropping and re-uploading. */
+  photo_position: number | null;
   /** A short, friendly first-person intro — "Meet [name]" — separate from
    * the more practical `notes` field below. */
   bio: string | null;
