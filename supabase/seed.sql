@@ -15,3 +15,9 @@ on conflict (slug) do nothing;
 insert into public.site_settings (caregiver_name, dates, thank_you_note)
 select null, null, null
 where not exists (select 1 from public.site_settings);
+
+-- A single house_info row for the House tab — never overwritten if one
+-- already exists.
+insert into public.house_info (address, wifi_name, wifi_password, entry_info, trash_day, parking, notes)
+select null, null, null, null, null, null, null
+where not exists (select 1 from public.house_info);

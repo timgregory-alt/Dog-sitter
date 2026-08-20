@@ -1,10 +1,22 @@
-import type { Dog, SiteSettings } from "./types";
+import type { Dog, HouseInfo, SiteSettings } from "./types";
 
 export const SEED_SETTINGS: SiteSettings = {
   id: "settings",
   caregiver_name: null,
   dates: null,
   thank_you_note: null,
+  updated_at: "2026-01-01T00:00:00.000Z",
+};
+
+export const SEED_HOUSE_INFO: HouseInfo = {
+  id: "house",
+  address: null,
+  wifi_name: null,
+  wifi_password: null,
+  entry_info: null,
+  trash_day: null,
+  parking: null,
+  notes: null,
   updated_at: "2026-01-01T00:00:00.000Z",
 };
 

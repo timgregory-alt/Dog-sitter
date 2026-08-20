@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ExternalLink, LogOut, Sparkles } from "lucide-react";
+import { ExternalLink, Home as HomeIcon, LogOut, Sparkles } from "lucide-react";
 import { getDogsAdmin } from "@/lib/dogs";
 import { logoutAction } from "@/app/edit/actions";
 
@@ -37,6 +37,13 @@ export default async function EditDogsPage() {
         >
           <Sparkles size={16} />
           Welcome page
+        </Link>
+        <Link
+          href="/edit/house"
+          className="flex flex-1 items-center justify-center gap-1.5 rounded-full border border-[var(--color-line)] bg-white px-4 py-2.5 text-sm font-medium text-[var(--color-ink)]"
+        >
+          <HomeIcon size={16} />
+          House info
         </Link>
       </div>
 

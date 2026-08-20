@@ -8,6 +8,22 @@ export interface SiteSettings {
   updated_at: string;
 }
 
+/** The single editable "House" tab — practical info about the house itself,
+ * separate from the pets. */
+export interface HouseInfo {
+  id: string;
+  address: string | null;
+  wifi_name: string | null;
+  wifi_password: string | null;
+  /** Door code, key location, alarm code — free text since setups vary a lot. */
+  entry_info: string | null;
+  trash_day: string | null;
+  parking: string | null;
+  /** Anything else — mail, plants, quirky doors, thermostat, etc. */
+  notes: string | null;
+  updated_at: string;
+}
+
 export interface Dog {
   id: string;
   /** Stable identity ('dog-1'..'dog-4') independent of the dog's name. */

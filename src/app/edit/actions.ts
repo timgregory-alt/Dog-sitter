@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { createAdminClient } from "@/lib/supabase";
 import { hasEditSession, trySetEditSession, clearEditSession } from "@/lib/session";
 import { getSettingsAdmin } from "@/lib/settings";
+import { getHouseInfoAdmin } from "@/lib/house";
 
 export type ActionResult = { error: string } | void;
 
@@ -85,4 +86,28 @@ export async function updateSettingsAction(formData: FormData): Promise<ActionRe
 
   revalidatePath("/edit/welcome");
   revalidatePath("/");
+}
+
+export async function updateHouseInfoAction(formData: FormData): Promise<ActionResult> {
+  if (!(await hasEditSession())) return { error: "Not authorized" };
+
+  const house = await getHouseInfoAdmin();
+
+  const values = {
+    address: String(formData.get("address") ?? "").trim() || null,
+    wifi_name: String(formData.get("wifi_name") ?? "").trim() || null,
+    wifi_password: String(formData.get("wifi_password") ?? "").trim() || null,
+    entry_info: String(formData.get("entry_info") ?? "").trim() || null,
+    trash_day: String(formData.get("trash_day") ?? "").trim() || null,
+    parking: String(formData.get("parking") ?? "").trim() || null,
+    notes: String(formData.get("notes") ?? "").trim() || null,
+    updated_at: new Date().toISOString(),
+  };
+
+  const supabase = createAdminClient();
+  const { error } = await supabase.from("house_info").update(values).eq("id", house.id);
+  if (error) return { error: error.message };
+
+  revalidatePath("/edit/house");
+  revalidatePath("/house");
 }

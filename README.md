@@ -8,7 +8,8 @@ Built with Next.js (App Router) + TypeScript + Tailwind CSS + Supabase (just a d
 
 - **`/`** — the public welcome/landing screen (caregiver's name, dates, a thank-you note) with a button through to `/dogs`. No login. This is the link you send your sitter.
 - **`/dogs`** — the four dog cards, one at a time. Tap a card to flip it from "meet the pet" (photo, nickname, bio, likes) to practical care info (food, medication, vet, emergency contact). Swipe right for the next dog, left for the previous one, or use the arrow buttons / dots.
-- **`/edit`** — where you fill in each dog's info and upload a photo, plus a link to `/edit/welcome` for the landing screen's text. Gated by a passcode (not a real login system — see below), not linked from the public pages.
+- **`/house`** — a single card with WiFi, getting in, trash day, parking, and any other house notes. A "Pets / House" tab switcher at the top of both `/dogs` and `/house` moves between the two.
+- **`/edit`** — where you fill in each dog's info and upload a photo, plus links to `/edit/welcome` (landing screen text) and `/edit/house` (the House tab). Gated by a passcode (not a real login system — see below), not linked from the public pages.
 
 The app runs without any environment variables configured — `/dogs` shows four blank placeholder cards so the UI is browsable immediately. Nothing persists and `/edit` won't work until Supabase is connected.
 
@@ -35,7 +36,7 @@ Copy `.env.example` to `.env.local` and fill in the values.
 ## 3. Set up Supabase
 
 1. Create a project at [supabase.com](https://supabase.com).
-2. In the SQL editor, run `supabase/schema.sql` then `supabase/seed.sql` — this creates the `dogs` and `site_settings` tables (RLS: publicly readable, writes only via the service-role key) and seeds four placeholder dogs plus one empty settings row.
+2. In the SQL editor, run `supabase/schema.sql` then `supabase/seed.sql` — this creates the `dogs`, `site_settings`, and `house_info` tables (RLS: publicly readable, writes only via the service-role key) and seeds four placeholder dogs plus one empty settings row and one empty house_info row.
    - If you're updating an already-running project instead of starting fresh, run the files in `supabase/migrations/` in order instead (they're additive and safe to run once).
 3. Grab the Project URL, anon key, and service role key from **Project Settings → API** and add them to `.env.local` (and to your deployment's environment variables).
 
@@ -56,25 +57,30 @@ src/
   app/
     page.tsx              The welcome/landing screen (video background, thank-you note)
     dogs/page.tsx           The flip-card carousel of the four dogs
+    house/page.tsx           The House tab (wifi, entry info, trash, parking, notes)
     edit/
       layout.tsx             Passcode gate
-      page.tsx                 List of the four dogs + link to the welcome page editor
+      page.tsx                 List of the four dogs + links to the welcome/house editors
       [id]/page.tsx              Edit form for one dog
       welcome/page.tsx            Edit form for the welcome screen's text
-      actions.ts                   Server Actions (passcode check + save)
+      house/page.tsx               Edit form for the House tab
+      actions.ts                    Server Actions (passcode check + save)
   components/
     DogCarousel.tsx        Swipe/arrow/dot navigation between dogs
     DogFlipCard.tsx          The flip card itself (front: meet the pet, back: care info)
     DogForm.tsx                Edit form, including client-side photo resize/upload
     WelcomeForm.tsx              Edit form for caregiver name / dates / thank-you note
-    PasscodeForm.tsx               The /edit lock screen
+    HouseForm.tsx                 Edit form for the House tab
+    PageTabs.tsx                   "Pets / House" tab switcher
+    PasscodeForm.tsx                 The /edit lock screen
   lib/
-    types.ts               Dog and SiteSettings types
+    types.ts               Dog, SiteSettings, and HouseInfo types
     supabase.ts              Public + service-role Supabase clients
     dogs.ts                     Dog data access (with seed-data fallback)
     settings.ts                   Welcome-screen data access (with seed-data fallback)
-    seed-data.ts                    Blank placeholder dogs + settings
-    session.ts                        Passcode cookie handling
+    house.ts                        House-tab data access (with seed-data fallback)
+    seed-data.ts                      Blank placeholder dogs + settings + house info
+    session.ts                          Passcode cookie handling
 public/
   welcome-bg.mp4          Background video for the welcome screen
 supabase/

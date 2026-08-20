@@ -57,3 +57,24 @@ alter table public.site_settings enable row level security;
 
 create policy "Site settings are public" on public.site_settings
   for select using (true);
+
+-- ---------------------------------------------------------------------------
+-- house_info — a single row powering the "House" tab (wifi, entry info,
+-- trash day, parking, notes). Same public-read/service-role-write pattern.
+-- ---------------------------------------------------------------------------
+create table if not exists public.house_info (
+  id uuid primary key default gen_random_uuid(),
+  address text,
+  wifi_name text,
+  wifi_password text,
+  entry_info text,
+  trash_day text,
+  parking text,
+  notes text,
+  updated_at timestamptz not null default now()
+);
+
+alter table public.house_info enable row level security;
+
+create policy "House info is public" on public.house_info
+  for select using (true);
