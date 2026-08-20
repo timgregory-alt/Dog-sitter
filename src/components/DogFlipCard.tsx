@@ -129,14 +129,6 @@ export function DogFlipCard({ dog, flipped, onFlip }: { dog: Dog; flipped: boole
               {dog.food && <InfoRow icon={Utensils} label="Food" value={dog.food} />}
               {dog.medication && <InfoRow icon={Pill} label="Medication" value={dog.medication} />}
               {dog.allergies && <InfoRow icon={PawPrint} label="Allergies" value={dog.allergies} />}
-              {dog.notes && <InfoRow icon={PawPrint} label="Notes" value={dog.notes} />}
-              {(dog.vet_name || dog.vet_phone) && (
-                <InfoRow
-                  icon={Stethoscope}
-                  label="Vet"
-                  value={[dog.vet_name, dog.vet_phone].filter(Boolean).join(" · ")}
-                />
-              )}
               {(dog.emergency_contact_name || dog.emergency_contact_phone) && (
                 <InfoRow
                   icon={Phone}
@@ -144,6 +136,14 @@ export function DogFlipCard({ dog, flipped, onFlip }: { dog: Dog; flipped: boole
                   value={[dog.emergency_contact_name, dog.emergency_contact_phone].filter(Boolean).join(" · ")}
                 />
               )}
+              {(dog.vet_name || dog.vet_phone) && (
+                <InfoRow
+                  icon={Stethoscope}
+                  label="Vet"
+                  value={[dog.vet_name, dog.vet_phone].filter(Boolean).join(" · ")}
+                />
+              )}
+              {dog.notes && <InfoRow icon={PawPrint} label="Notes" value={dog.notes} />}
               {!hasCareInfo && <p className="text-sm text-[var(--color-ink-soft)]">No care info yet.</p>}
             </div>
           </div>
