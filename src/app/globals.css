@@ -21,6 +21,7 @@
   --color-accent-soft: var(--color-accent-soft);
   --color-line: var(--color-line);
   --font-sans: var(--font-inter);
+  --font-serif: var(--font-cormorant);
 }
 
 body {

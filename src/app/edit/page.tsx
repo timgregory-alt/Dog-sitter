@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ExternalLink, LogOut } from "lucide-react";
+import { ExternalLink, LogOut, Sparkles } from "lucide-react";
 import { getDogsAdmin } from "@/lib/dogs";
 import { logoutAction } from "@/app/edit/actions";
 
@@ -22,14 +22,23 @@ export default async function EditDogsPage() {
         </form>
       </div>
 
-      <Link
-        href="/"
-        target="_blank"
-        className="flex items-center justify-center gap-1.5 rounded-full border border-[var(--color-line)] bg-white px-4 py-2.5 text-sm font-medium text-[var(--color-ink)]"
-      >
-        <ExternalLink size={16} />
-        View sitter page
-      </Link>
+      <div className="flex gap-2">
+        <Link
+          href="/"
+          target="_blank"
+          className="flex flex-1 items-center justify-center gap-1.5 rounded-full border border-[var(--color-line)] bg-white px-4 py-2.5 text-sm font-medium text-[var(--color-ink)]"
+        >
+          <ExternalLink size={16} />
+          View sitter page
+        </Link>
+        <Link
+          href="/edit/welcome"
+          className="flex flex-1 items-center justify-center gap-1.5 rounded-full border border-[var(--color-line)] bg-white px-4 py-2.5 text-sm font-medium text-[var(--color-ink)]"
+        >
+          <Sparkles size={16} />
+          Welcome page
+        </Link>
+      </div>
 
       <div className="flex flex-col gap-2">
         {dogs.map((d) => (

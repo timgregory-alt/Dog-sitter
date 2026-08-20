@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { createAdminClient } from "@/lib/supabase";
 import { hasEditSession, trySetEditSession, clearEditSession } from "@/lib/session";
+import { getSettingsAdmin } from "@/lib/settings";
 
 export type ActionResult = { error: string } | void;
 
@@ -22,12 +23,17 @@ export async function updateDogAction(dogId: string, formData: FormData): Promis
   if (!(await hasEditSession())) return { error: "Not authorized" };
 
   const photo = String(formData.get("photo") ?? "").trim();
+  const likes = String(formData.get("likes") ?? "")
+    .split("\n")
+    .map((l) => l.trim())
+    .filter(Boolean);
 
   const dog = {
     name: String(formData.get("name") ?? "").trim(),
     nickname: String(formData.get("nickname") ?? "").trim() || null,
     photo: photo || null,
     bio: String(formData.get("bio") ?? "").trim() || null,
+    likes: likes.length > 0 ? likes : null,
     breed: String(formData.get("breed") ?? "").trim() || null,
     age: String(formData.get("age") ?? "").trim() || null,
     weight: String(formData.get("weight") ?? "").trim() || null,
@@ -50,5 +56,25 @@ export async function updateDogAction(dogId: string, formData: FormData): Promis
 
   revalidatePath("/edit");
   revalidatePath(`/edit/${dogId}`);
+  revalidatePath("/dogs");
+}
+
+export async function updateSettingsAction(formData: FormData): Promise<ActionResult> {
+  if (!(await hasEditSession())) return { error: "Not authorized" };
+
+  const settings = await getSettingsAdmin();
+
+  const values = {
+    caregiver_name: String(formData.get("caregiver_name") ?? "").trim() || null,
+    dates: String(formData.get("dates") ?? "").trim() || null,
+    thank_you_note: String(formData.get("thank_you_note") ?? "").trim() || null,
+    updated_at: new Date().toISOString(),
+  };
+
+  const supabase = createAdminClient();
+  const { error } = await supabase.from("site_settings").update(values).eq("id", settings.id);
+  if (error) return { error: error.message };
+
+  revalidatePath("/edit/welcome");
   revalidatePath("/");
 }

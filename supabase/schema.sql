@@ -10,6 +10,7 @@ create table if not exists public.dogs (
   nickname text,
   photo text,
   bio text,
+  likes text[],
   breed text,
   age text,
   weight text,
@@ -36,3 +37,21 @@ create policy "Dogs are public" on public.dogs
 -- Deliberately no insert/update/delete policy: the /edit pages write
 -- through the service-role key (SUPABASE_SERVICE_ROLE_KEY), which bypasses
 -- RLS entirely, gated instead by the EDIT_PASSCODE check in the app.
+
+-- ---------------------------------------------------------------------------
+-- site_settings — a single row powering the editable welcome/landing page
+-- (caregiver name, dates, thank-you note). Same public-read/service-role-write
+-- pattern as dogs.
+-- ---------------------------------------------------------------------------
+create table if not exists public.site_settings (
+  id uuid primary key default gen_random_uuid(),
+  caregiver_name text,
+  dates text,
+  thank_you_note text,
+  updated_at timestamptz not null default now()
+);
+
+alter table public.site_settings enable row level security;
+
+create policy "Site settings are public" on public.site_settings
+  for select using (true);

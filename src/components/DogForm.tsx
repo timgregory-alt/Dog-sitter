@@ -156,6 +156,16 @@ export function DogForm({
       </label>
 
       <label className={labelClass}>
+        <span className={labelTextClass}>Loves (one per line)</span>
+        <textarea
+          name="likes"
+          defaultValue={(dog.likes ?? []).join("\n")}
+          placeholder={"Long walks\nBelly rubs\nSqueaky toys\nCar rides"}
+          className={textareaClass}
+        />
+      </label>
+
+      <label className={labelClass}>
         <span className={labelTextClass}>Food</span>
         <textarea
           name="food"

@@ -9,3 +9,9 @@ values
   ('dog-3', 'Dog 3', 3),
   ('dog-4', 'Dog 4', 4)
 on conflict (slug) do nothing;
+
+-- A single settings row for the welcome page — never overwritten if one
+-- already exists.
+insert into public.site_settings (caregiver_name, dates, thank_you_note)
+select null, null, null
+where not exists (select 1 from public.site_settings);
