@@ -11,6 +11,7 @@ create table if not exists public.dogs (
   photo text,
   bio text,
   likes text[],
+  bad_habits text[],
   breed text,
   age text,
   weight text,

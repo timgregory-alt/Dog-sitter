@@ -74,20 +74,41 @@ export function DogFlipCard({ dog, flipped, onFlip }: { dog: Dog; flipped: boole
             {basics && <p className="text-sm text-[var(--color-ink-soft)]">{basics}</p>}
             {dog.bio && <p className="whitespace-pre-line text-sm text-[var(--color-ink)] italic">{dog.bio}</p>}
             {dog.likes && dog.likes.length > 0 && (
-              <div className="flex flex-wrap gap-1.5">
-                {dog.likes.map((like) => (
-                  <span
-                    key={like}
-                    className="rounded-full border border-[var(--color-accent-soft)] px-2.5 py-1 text-xs font-medium text-[var(--color-accent-deep)]"
-                  >
-                    {like}
-                  </span>
-                ))}
+              <div>
+                <p className="text-xs font-medium tracking-wide text-[var(--color-ink-soft)] uppercase">Loves</p>
+                <div className="mt-1.5 flex flex-wrap gap-1.5">
+                  {dog.likes.map((like) => (
+                    <span
+                      key={like}
+                      className="rounded-full border border-[var(--color-accent-soft)] px-2.5 py-1 text-xs font-medium text-[var(--color-accent-deep)]"
+                    >
+                      {like}
+                    </span>
+                  ))}
+                </div>
               </div>
             )}
-            {!dog.bio && (!dog.likes || dog.likes.length === 0) && !basics && (
-              <p className="text-sm text-[var(--color-ink-soft)]">No intro yet.</p>
+            {dog.bad_habits && dog.bad_habits.length > 0 && (
+              <div>
+                <p className="text-xs font-medium tracking-wide text-[var(--color-ink-soft)] uppercase">
+                  Bad habits
+                </p>
+                <div className="mt-1.5 flex flex-wrap gap-1.5">
+                  {dog.bad_habits.map((habit) => (
+                    <span
+                      key={habit}
+                      className="rounded-full border border-[var(--color-line)] bg-[var(--color-cream)] px-2.5 py-1 text-xs font-medium text-[var(--color-ink-soft)]"
+                    >
+                      {habit}
+                    </span>
+                  ))}
+                </div>
+              </div>
             )}
+            {!dog.bio &&
+              (!dog.likes || dog.likes.length === 0) &&
+              (!dog.bad_habits || dog.bad_habits.length === 0) &&
+              !basics && <p className="text-sm text-[var(--color-ink-soft)]">No intro yet.</p>}
           </div>
 
           <button

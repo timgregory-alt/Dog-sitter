@@ -27,6 +27,10 @@ export async function updateDogAction(dogId: string, formData: FormData): Promis
     .split("\n")
     .map((l) => l.trim())
     .filter(Boolean);
+  const badHabits = String(formData.get("bad_habits") ?? "")
+    .split("\n")
+    .map((l) => l.trim())
+    .filter(Boolean);
 
   const dog = {
     name: String(formData.get("name") ?? "").trim(),
@@ -34,6 +38,7 @@ export async function updateDogAction(dogId: string, formData: FormData): Promis
     photo: photo || null,
     bio: String(formData.get("bio") ?? "").trim() || null,
     likes: likes.length > 0 ? likes : null,
+    bad_habits: badHabits.length > 0 ? badHabits : null,
     breed: String(formData.get("breed") ?? "").trim() || null,
     age: String(formData.get("age") ?? "").trim() || null,
     weight: String(formData.get("weight") ?? "").trim() || null,

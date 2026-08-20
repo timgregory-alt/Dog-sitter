@@ -22,6 +22,9 @@ export interface Dog {
   /** Short trait/interest tags shown as pills — "Long walks", "Belly rubs" —
    * dating-profile style, alongside the bio. */
   likes: string[] | null;
+  /** Short, honest quirks/flaws shown as pills — "Counter-surfs",
+   * "Barks at the mail carrier" — same dating-profile treatment as likes. */
+  bad_habits: string[] | null;
   breed: string | null;
   age: string | null;
   weight: string | null;

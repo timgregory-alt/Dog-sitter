@@ -14,6 +14,7 @@ export default async function WelcomePage() {
     <main className="relative flex min-h-dvh flex-col items-center justify-center overflow-hidden">
       <video
         className="absolute inset-0 h-full w-full object-cover"
+        style={{ objectPosition: "center 30%" }}
         src="/welcome-bg.mp4"
         autoPlay
         loop

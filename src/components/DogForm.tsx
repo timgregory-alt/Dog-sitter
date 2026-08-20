@@ -166,6 +166,16 @@ export function DogForm({
       </label>
 
       <label className={labelClass}>
+        <span className={labelTextClass}>Bad habits (one per line)</span>
+        <textarea
+          name="bad_habits"
+          defaultValue={(dog.bad_habits ?? []).join("\n")}
+          placeholder={"Counter-surfs\nBarks at the mail carrier\nSteals socks"}
+          className={textareaClass}
+        />
+      </label>
+
+      <label className={labelClass}>
         <span className={labelTextClass}>Food</span>
         <textarea
           name="food"
