@@ -18,7 +18,7 @@ const cormorant = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
-  title: "Dog Care Guide",
+  title: "Pet Care Guide",
   description: "Photo, food, medication, and vet info for each dog.",
 };
 
