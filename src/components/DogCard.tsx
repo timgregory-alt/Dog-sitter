@@ -27,7 +27,12 @@ export function DogCard({ dog }: { dog: Dog }) {
 
   return (
     <div className="overflow-hidden rounded-3xl border border-[var(--color-line)] bg-white shadow-[0_1px_2px_rgba(43,38,32,0.04),0_12px_32px_-16px_rgba(43,38,32,0.18)]">
-      <div className="flex h-56 w-full items-center justify-center bg-[var(--color-cream-deep)]">
+      <div className="relative flex h-56 w-full items-center justify-center bg-[var(--color-cream-deep)]">
+        {dog.nickname && (
+          <span className="absolute top-3 left-3 rounded-full bg-white/90 px-3 py-1 text-sm font-medium text-[var(--color-ink)] shadow-sm backdrop-blur-sm">
+            &ldquo;{dog.nickname}&rdquo;
+          </span>
+        )}
         {dog.photo ? (
           <Image
             src={dog.photo}
@@ -47,6 +52,15 @@ export function DogCard({ dog }: { dog: Dog }) {
           <h2 className="text-xl font-semibold text-[var(--color-ink)]">{dog.name}</h2>
           {basics && <p className="text-sm text-[var(--color-ink-soft)]">{basics}</p>}
         </div>
+
+        {dog.bio && (
+          <div className="rounded-2xl bg-[var(--color-cream-deep)] p-4">
+            <p className="text-xs font-medium uppercase tracking-wide text-[var(--color-accent-deep)]">
+              Meet {dog.nickname || dog.name}
+            </p>
+            <p className="mt-1 whitespace-pre-line text-sm italic text-[var(--color-ink)]">{dog.bio}</p>
+          </div>
+        )}
 
         {dog.food && <InfoRow icon={Utensils} label="Food" value={dog.food} />}
         {dog.medication && <InfoRow icon={Pill} label="Medication" value={dog.medication} />}

@@ -119,10 +119,16 @@ export function DogForm({
         </div>
       </div>
 
-      <label className={labelClass}>
-        <span className={labelTextClass}>Name</span>
-        <input name="name" required defaultValue={dog.name} className={inputClass} />
-      </label>
+      <div className="grid grid-cols-2 gap-4">
+        <label className={labelClass}>
+          <span className={labelTextClass}>Name</span>
+          <input name="name" required defaultValue={dog.name} className={inputClass} />
+        </label>
+        <label className={labelClass}>
+          <span className={labelTextClass}>Nickname</span>
+          <input name="nickname" defaultValue={dog.nickname ?? ""} placeholder="e.g. Rexy" className={inputClass} />
+        </label>
+      </div>
 
       <div className="grid grid-cols-3 gap-4">
         <label className={labelClass}>
@@ -138,6 +144,16 @@ export function DogForm({
           <input name="weight" defaultValue={dog.weight ?? ""} placeholder="e.g. 45 lbs" className={inputClass} />
         </label>
       </div>
+
+      <label className={labelClass}>
+        <span className={labelTextClass}>Meet {dog.name || "them"}</span>
+        <textarea
+          name="bio"
+          defaultValue={dog.bio ?? ""}
+          placeholder={`A short, friendly intro in ${dog.name || "the dog"}'s voice — e.g. "Hi, I'm ${dog.name || "..."}! I love belly rubs and chasing squirrels."`}
+          className={textareaClass}
+        />
+      </label>
 
       <label className={labelClass}>
         <span className={labelTextClass}>Food</span>

@@ -3,8 +3,12 @@ export interface Dog {
   /** Stable identity ('dog-1'..'dog-4') independent of the dog's name. */
   slug: string;
   name: string;
+  nickname: string | null;
   /** A data URL (photo uploaded via the edit form) or a hosted image URL. */
   photo: string | null;
+  /** A short, friendly first-person intro — "Meet [name]" — separate from
+   * the more practical `notes` field below. */
+  bio: string | null;
   breed: string | null;
   age: string | null;
   weight: string | null;

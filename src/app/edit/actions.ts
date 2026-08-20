@@ -25,7 +25,9 @@ export async function updateDogAction(dogId: string, formData: FormData): Promis
 
   const dog = {
     name: String(formData.get("name") ?? "").trim(),
+    nickname: String(formData.get("nickname") ?? "").trim() || null,
     photo: photo || null,
+    bio: String(formData.get("bio") ?? "").trim() || null,
     breed: String(formData.get("breed") ?? "").trim() || null,
     age: String(formData.get("age") ?? "").trim() || null,
     weight: String(formData.get("weight") ?? "").trim() || null,
