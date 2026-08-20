@@ -74,7 +74,7 @@ export function DogFlipCard({ dog }: { dog: Dog }) {
             </div>
           </div>
 
-          <div className="flex min-h-0 flex-1 flex-col gap-3 overflow-y-auto p-5">
+          <div className="flex min-h-0 flex-1 touch-pan-y flex-col gap-3 overflow-y-auto overscroll-contain p-5">
             {basics && <p className="text-sm text-[var(--color-ink-soft)]">{basics}</p>}
             {dog.bio && <p className="whitespace-pre-line text-sm text-[var(--color-ink)] italic">{dog.bio}</p>}
             {dog.likes && dog.likes.length > 0 && (
@@ -127,7 +127,7 @@ export function DogFlipCard({ dog }: { dog: Dog }) {
 
         {/* Back — practical care info */}
         <div className={faceClass} style={{ transform: "rotateY(180deg)" }}>
-          <div className="min-h-0 flex-1 overflow-y-auto p-5">
+          <div className="min-h-0 flex-1 touch-pan-y overflow-y-auto overscroll-contain p-5">
             <p className="font-serif text-2xl text-[var(--color-ink)]">{dog.name}&rsquo;s Care</p>
             <div className="mt-4 flex flex-col gap-4">
               {dog.food && <InfoRow icon={Utensils} label="Food" value={dog.food} />}
