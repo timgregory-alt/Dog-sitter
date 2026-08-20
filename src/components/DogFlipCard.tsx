@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import { PawPrint, Phone, Pill, RotateCw, Stethoscope, Utensils } from "lucide-react";
 import type { Dog } from "@/lib/types";
@@ -27,7 +28,9 @@ function InfoRow({
 const faceClass =
   "absolute inset-0 flex flex-col overflow-hidden rounded-3xl border border-[var(--color-line)] bg-white shadow-[0_1px_2px_rgba(43,38,32,0.04),0_12px_32px_-16px_rgba(43,38,32,0.18)] [backface-visibility:hidden]";
 
-export function DogFlipCard({ dog, flipped, onFlip }: { dog: Dog; flipped: boolean; onFlip: () => void }) {
+export function DogFlipCard({ dog }: { dog: Dog }) {
+  const [flipped, setFlipped] = useState(false);
+  const onFlip = () => setFlipped((f) => !f);
   const basics = [dog.breed, dog.age, dog.weight].filter(Boolean).join(" · ");
   const hasCareInfo =
     dog.food ||
