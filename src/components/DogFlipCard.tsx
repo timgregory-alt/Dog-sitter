@@ -50,69 +50,71 @@ export function DogFlipCard({ dog }: { dog: Dog }) {
       >
         {/* Front — photo + "meet the pet" */}
         <div className={faceClass}>
-          <div className="relative h-72 w-full shrink-0 bg-[var(--color-cream-deep)]">
-            {dog.photo ? (
-              <Image
-                src={dog.photo}
-                alt={dog.name}
-                width={600}
-                height={576}
-                unoptimized
-                className="h-full w-full object-cover"
-                style={{ objectPosition: `50% ${dog.photo_position ?? 50}%` }}
-              />
-            ) : (
-              <div className="flex h-full items-center justify-center">
-                <PawPrint size={40} className="text-[var(--color-ink)]/25" />
-              </div>
-            )}
-            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 via-black/25 to-transparent px-5 pt-12 pb-4">
-              <p className="font-serif text-3xl tracking-wide text-white">{dog.name}</p>
-              {dog.nickname && (
-                <p className="mt-0.5 font-serif text-base text-white/85 italic">&ldquo;{dog.nickname}&rdquo;</p>
+          <div className="min-h-0 flex-1 touch-pan-y overflow-y-auto overscroll-contain">
+            <div className="relative h-72 w-full shrink-0 bg-[var(--color-cream-deep)]">
+              {dog.photo ? (
+                <Image
+                  src={dog.photo}
+                  alt={dog.name}
+                  width={600}
+                  height={576}
+                  unoptimized
+                  className="h-full w-full object-cover"
+                  style={{ objectPosition: `50% ${dog.photo_position ?? 50}%` }}
+                />
+              ) : (
+                <div className="flex h-full items-center justify-center">
+                  <PawPrint size={40} className="text-[var(--color-ink)]/25" />
+                </div>
               )}
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 via-black/25 to-transparent px-5 pt-12 pb-4">
+                <p className="font-serif text-3xl tracking-wide text-white">{dog.name}</p>
+                {dog.nickname && (
+                  <p className="mt-0.5 font-serif text-base text-white/85 italic">&ldquo;{dog.nickname}&rdquo;</p>
+                )}
+              </div>
             </div>
-          </div>
 
-          <div className="flex min-h-0 flex-1 touch-pan-y flex-col gap-3 overflow-y-auto overscroll-contain p-5">
-            {basics && <p className="text-sm text-[var(--color-ink-soft)]">{basics}</p>}
-            {dog.bio && <p className="whitespace-pre-line text-sm text-[var(--color-ink)] italic">{dog.bio}</p>}
-            {dog.likes && dog.likes.length > 0 && (
-              <div>
-                <p className="text-xs font-medium tracking-wide text-[var(--color-ink-soft)] uppercase">Loves</p>
-                <div className="mt-1.5 flex flex-wrap gap-1.5">
-                  {dog.likes.map((like) => (
-                    <span
-                      key={like}
-                      className="rounded-full border border-[var(--color-accent-soft)] px-2.5 py-1 text-xs font-medium text-[var(--color-accent-deep)]"
-                    >
-                      {like}
-                    </span>
-                  ))}
+            <div className="flex flex-col gap-3 p-5">
+              {basics && <p className="text-sm text-[var(--color-ink-soft)]">{basics}</p>}
+              {dog.bio && <p className="whitespace-pre-line text-sm text-[var(--color-ink)] italic">{dog.bio}</p>}
+              {dog.likes && dog.likes.length > 0 && (
+                <div>
+                  <p className="text-xs font-medium tracking-wide text-[var(--color-ink-soft)] uppercase">Loves</p>
+                  <div className="mt-1.5 flex flex-wrap gap-1.5">
+                    {dog.likes.map((like) => (
+                      <span
+                        key={like}
+                        className="rounded-full border border-[var(--color-accent-soft)] px-2.5 py-1 text-xs font-medium text-[var(--color-accent-deep)]"
+                      >
+                        {like}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            )}
-            {dog.bad_habits && dog.bad_habits.length > 0 && (
-              <div>
-                <p className="text-xs font-medium tracking-wide text-[var(--color-ink-soft)] uppercase">
-                  Bad habits
-                </p>
-                <div className="mt-1.5 flex flex-wrap gap-1.5">
-                  {dog.bad_habits.map((habit) => (
-                    <span
-                      key={habit}
-                      className="rounded-full border border-[var(--color-line)] bg-[var(--color-cream)] px-2.5 py-1 text-xs font-medium text-[var(--color-ink-soft)]"
-                    >
-                      {habit}
-                    </span>
-                  ))}
+              )}
+              {dog.bad_habits && dog.bad_habits.length > 0 && (
+                <div>
+                  <p className="text-xs font-medium tracking-wide text-[var(--color-ink-soft)] uppercase">
+                    Bad habits
+                  </p>
+                  <div className="mt-1.5 flex flex-wrap gap-1.5">
+                    {dog.bad_habits.map((habit) => (
+                      <span
+                        key={habit}
+                        className="rounded-full border border-[var(--color-line)] bg-[var(--color-cream)] px-2.5 py-1 text-xs font-medium text-[var(--color-ink-soft)]"
+                      >
+                        {habit}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            )}
-            {!dog.bio &&
-              (!dog.likes || dog.likes.length === 0) &&
-              (!dog.bad_habits || dog.bad_habits.length === 0) &&
-              !basics && <p className="text-sm text-[var(--color-ink-soft)]">No intro yet.</p>}
+              )}
+              {!dog.bio &&
+                (!dog.likes || dog.likes.length === 0) &&
+                (!dog.bad_habits || dog.bad_habits.length === 0) &&
+                !basics && <p className="text-sm text-[var(--color-ink-soft)]">No intro yet.</p>}
+            </div>
           </div>
 
           <button
