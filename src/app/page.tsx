@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PawPrint } from "lucide-react";
 import { getSettingsPublic } from "@/lib/settings";
+import { PageTabs } from "@/components/PageTabs";
 
 export const metadata: Metadata = {
   robots: { index: false, follow: false },
@@ -28,6 +29,10 @@ export default async function WelcomePage() {
         aria-hidden="true"
       />
       <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/40 to-black/60" />
+
+      <div className="absolute inset-x-0 top-0 z-10 mx-auto max-w-md px-5 pt-5">
+        <PageTabs active="welcome" />
+      </div>
 
       <div className="relative z-10 mx-auto flex max-w-md flex-col items-center gap-6 px-6 text-center">
         <PawPrint size={36} className="text-white" />
