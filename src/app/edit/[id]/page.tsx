@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowLeft, ChevronLeft, ChevronRight } from "lucide-react";
 import { getDogByIdAdmin, getDogsAdmin } from "@/lib/dogs";
 import { DogForm } from "@/components/DogForm";
 import { updateDogAction } from "@/app/edit/actions";
@@ -16,7 +16,12 @@ export default async function EditDogPage({ params }: { params: Promise<{ id: st
 
   return (
     <main className="mx-auto max-w-xl px-5 pt-10 pb-14">
-      <div className="mb-6 flex items-center justify-between gap-3">
+      <Link href="/edit" className="flex items-center gap-1.5 text-sm text-[var(--color-ink-soft)] hover:underline">
+        <ArrowLeft size={15} />
+        Back
+      </Link>
+
+      <div className="mt-3 mb-6 flex items-center justify-between gap-3">
         {prevDog ? (
           <Link
             href={`/edit/${prevDog.id}`}
