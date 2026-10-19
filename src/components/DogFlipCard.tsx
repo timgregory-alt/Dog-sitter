@@ -28,11 +28,27 @@ function InfoRow({
 const faceClass =
   "flex h-full w-full flex-col overflow-hidden rounded-3xl border border-[var(--color-line)] bg-white shadow-[0_1px_2px_rgba(43,38,32,0.04),0_12px_32px_-16px_rgba(43,38,32,0.18)]";
 
+function handleFlipKeyDown(onFlip: () => void) {
+  return (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      onFlip();
+    }
+  };
+}
+
 function FrontFace({ dog, onFlip }: { dog: Dog; onFlip: () => void }) {
   const basics = [dog.breed, dog.age, dog.weight].filter(Boolean).join(" · ");
 
   return (
-    <div className={faceClass}>
+    <div
+      className={faceClass}
+      onClick={onFlip}
+      onKeyDown={handleFlipKeyDown(onFlip)}
+      role="button"
+      tabIndex={0}
+      aria-label={`Flip ${dog.name}'s card`}
+    >
       <div className="relative h-72 w-full shrink-0 bg-[var(--color-cream-deep)]">
         {dog.photo ? (
           <Image
@@ -100,7 +116,6 @@ function FrontFace({ dog, onFlip }: { dog: Dog; onFlip: () => void }) {
 
       <button
         type="button"
-        onClick={onFlip}
         className="flex items-center justify-center gap-1.5 border-t border-[var(--color-line)] py-3 text-xs font-medium tracking-wide text-[var(--color-ink-soft)] uppercase"
       >
         <RotateCw size={13} />
@@ -122,7 +137,14 @@ function BackFace({ dog, onFlip }: { dog: Dog; onFlip: () => void }) {
     dog.emergency_contact_phone;
 
   return (
-    <div className={faceClass}>
+    <div
+      className={faceClass}
+      onClick={onFlip}
+      onKeyDown={handleFlipKeyDown(onFlip)}
+      role="button"
+      tabIndex={0}
+      aria-label={`Flip back to ${dog.name}'s profile`}
+    >
       <div className="min-h-0 flex-1 touch-pan-y overflow-y-auto overscroll-contain p-5">
         <p className="font-serif text-2xl text-[var(--color-ink)]">{dog.name}&rsquo;s Care</p>
         <div className="mt-4 flex flex-col gap-4">
@@ -149,7 +171,6 @@ function BackFace({ dog, onFlip }: { dog: Dog; onFlip: () => void }) {
       </div>
       <button
         type="button"
-        onClick={onFlip}
         className="flex items-center justify-center gap-1.5 border-t border-[var(--color-line)] py-3 text-xs font-medium tracking-wide text-[var(--color-ink-soft)] uppercase"
       >
         <RotateCw size={13} />

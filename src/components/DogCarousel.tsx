@@ -82,9 +82,7 @@ export function DogCarousel({ dogs }: { dogs: Dog[] }) {
         </button>
       </div>
 
-      <p className="text-xs text-[var(--color-ink-soft)]">
-        Swipe or use the arrows to browse — tap &ldquo;Care instructions&rdquo; on a card to flip it
-      </p>
+      <p className="text-xs text-[var(--color-ink-soft)]">Swipe or use the arrows to browse — tap a card to flip it</p>
     </div>
   );
 }
