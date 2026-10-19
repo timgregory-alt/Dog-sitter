@@ -7,6 +7,11 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
+// Refetch periodically (not just on edits) so a build that happened while
+// Supabase was briefly unreachable doesn't leave this page stuck on
+// fallback placeholder data indefinitely.
+export const revalidate = 60;
+
 export default async function DogsPage() {
   const dogs = await getDogsPublic();
 
