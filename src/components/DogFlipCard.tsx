@@ -73,7 +73,7 @@ function FrontFace({ dog, onFlip }: { dog: Dog; onFlip: () => void }) {
         </div>
       </div>
 
-      <div className="min-h-0 flex-1 touch-pan-y overflow-y-auto overscroll-contain">
+      <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain">
         <div className="flex flex-col gap-3 p-5">
           {basics && <p className="text-sm text-[var(--color-ink-soft)]">{basics}</p>}
           {dog.bio && <p className="whitespace-pre-line text-sm text-[var(--color-ink)] italic">{dog.bio}</p>}
@@ -145,7 +145,7 @@ function BackFace({ dog, onFlip }: { dog: Dog; onFlip: () => void }) {
       tabIndex={0}
       aria-label={`Flip back to ${dog.name}'s profile`}
     >
-      <div className="min-h-0 flex-1 touch-pan-y overflow-y-auto overscroll-contain p-5">
+      <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain p-5">
         <p className="font-serif text-2xl text-[var(--color-ink)]">{dog.name}&rsquo;s Care</p>
         <div className="mt-4 flex flex-col gap-4">
           {dog.food && <InfoRow icon={Utensils} label="Food" value={dog.food} />}
